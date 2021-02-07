@@ -135,7 +135,7 @@ public class Classroom {
     public ArrayList<String> getEnrolledStudents() {
         // TODO: Implement. Return the names of all students that are enrolled in an ArrayList<Student>.
 
-        // Is this even that fast?
+        // OPTIMIZE: Is this even that fast?
         // Stream the enrolled list then map then collect
         List<String> studentsNameList = enrolledIds.stream()
                 .map(e -> registeredStudents.get(e).getName())
@@ -149,7 +149,7 @@ public class Classroom {
         // TODO: Implement. Return the names of all of the students that are in the waitlist in an ArrayList<Student>.
         //       They should be in the same order that they are in the waitlist.
 
-        // Is this even that fast?
+        // OPTIMIZE: Is this even that fast?
         // Stream the waitlist then map then collect
         List<String> studentsNameList = waitlistIds.stream()
                 .map(e -> registeredStudents.get(e).getName())
