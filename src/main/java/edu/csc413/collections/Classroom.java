@@ -152,15 +152,32 @@ public class Classroom {
         // TODO: Implement. Return the names of all of the students that are in the waitlist in an ArrayList<Student>.
         //       They should be in the same order that they are in the waitlist.
 
-        // OPTIMIZE: Is this even that fast?
-        // Stream the waitlist then map then collect
-        List<String> studentsNameList = waitlistIds.stream()
-                .map(e -> registeredStudents.get(e).getName())
-                .collect(Collectors.toList());
+//        // OPTIMIZE: Is this even that fast?
+//        // Stream the waitlist then map then collect
+//        List<String> studentsNameList = waitlistIds.stream()
+//                .map(e -> registeredStudents.get(e).getName())
+//                .collect(Collectors.toList());
+//
+//        return (ArrayList<String>) studentsNameList;
 
-        return (ArrayList<String>) studentsNameList;
+        Stack<Integer> idStack = new Stack<>();
+        ArrayList<String> studentNameArrayList = new ArrayList<>();
 
+        //  Loop through waitlistIds (Non-modifying iterable)
+        for (int e : waitlistIds) {
+            // Add element to stack
+            idStack.push(e);
+        }
 
+        // Loop through idStack (Body/Scope will modifying the iterable/Collection)
+        while (!idStack.empty()) {
+
+            // Pop id from stack and use the hashmap to get the name based on the id
+            studentNameArrayList.add(registeredStudents.get(idStack.pop()).getName());
+        }
+
+        // Return the studentNameArrayList
+        return studentNameArrayList;
     }
 
     public static void main(String[] args) {
