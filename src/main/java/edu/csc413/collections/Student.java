@@ -5,10 +5,12 @@ Github: https://github.com/josephedradan
 Date created: 2/6/2021
 
 Purpose:
+    Student class
 
 Details:
 
 Description:
+    A generic student class
 
 Notes:
 

@@ -5,12 +5,15 @@ Github: https://github.com/josephedradan
 Date created: 2/6/2021
 
 Purpose:
+    Do assignment 1
 
 Details:
 
 Description:
+    You got a classroom and some students trying to enroll into a class
 
 Notes:
+    registerStudent should be part of the School class
 
 IMPORTANT NOTES:
 
