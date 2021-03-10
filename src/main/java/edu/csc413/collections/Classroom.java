@@ -105,25 +105,25 @@ public class Classroom {
         // Catch exceptions when removing from an empty queue specifically from remove()
 
 
-        // Remove student from enrolled list
-        boolean result = enrolledIds.remove(id);
+        if (!enrolledIds.isEmpty()){
+            // Remove student from enrolled list
+            boolean result = enrolledIds.remove(id);
 
-        // If the removal of the student from the enrolled list was successful
-        if (result) {
-            System.out.printf("Student %s was removed from the enrolled list.%n", registeredStudents.get(id).getName());
+            // If the removal of the student from the enrolled list was successful
+            if (result) {
+                System.out.printf("Student %s was removed from the enrolled list.%n", registeredStudents.get(id).getName());
 
+                if (!waitlistIds.isEmpty()) {
+                    int waitlistIdTemp = waitlistIds.remove();
 
-            if (!waitlistIds.isEmpty()) {
-                int waitlistIdTemp = waitlistIds.remove();
+                    System.out.printf("Student %s was removed from the waitlist and added to the enroll list.%n", registeredStudents.get(waitlistIdTemp).getName());
 
-                System.out.printf("Student %s was removed from the waitlist and added to the enroll list.%n", registeredStudents.get(waitlistIdTemp).getName());
-
-                // Add the head of the queue from the waitlist to the enrolled list
-                enrolledIds.add(waitlistIdTemp);
-            } else {
-                // Handle Exceptions on removing from an empty queue
-                System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
-            }
+                    // Add the head of the queue from the waitlist to the enrolled list
+                    enrolledIds.add(waitlistIdTemp);
+                } else {
+                    // Handle Exceptions on removing from an empty queue
+                    System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
+                }
 
 //            try {
 //                // Id taken from the waitlist
@@ -139,9 +139,10 @@ public class Classroom {
 //                System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
 //                // System.out.println(e);
 //            }
-        } else {
-            // Handle Student was never enrolled
-            System.out.printf("Student %s was never enrolled!%n", registeredStudents.get(id).getName());
+            } else {
+                // Handle Student was never enrolled
+                System.out.printf("Student %s was never enrolled!%n", registeredStudents.get(id).getName());
+            }
         }
     }
 
