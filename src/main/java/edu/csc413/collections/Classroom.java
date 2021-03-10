@@ -103,35 +103,45 @@ public class Classroom {
         //       student was removed, backfill the enrolled students set with a student from the waitlist.
 
         // Catch exceptions when removing from an empty queue specifically from remove()
-        try {
 
-            // Remove student from enrolled list
-            boolean result = enrolledIds.remove(id);
 
-            // If the removal of the student from the enrolled list was successful
-            if (result) {
-                System.out.printf("Student %s was removed from the enrolled list.%n", registeredStudents.get(id).getName());
+        // Remove student from enrolled list
+        boolean result = enrolledIds.remove(id);
 
-                // Id taken from the waitlist
+        // If the removal of the student from the enrolled list was successful
+        if (result) {
+            System.out.printf("Student %s was removed from the enrolled list.%n", registeredStudents.get(id).getName());
+
+
+            if (!waitlistIds.isEmpty()) {
                 int waitlistIdTemp = waitlistIds.remove();
 
                 System.out.printf("Student %s was removed from the waitlist and added to the enroll list.%n", registeredStudents.get(waitlistIdTemp).getName());
 
                 // Add the head of the queue from the waitlist to the enrolled list
                 enrolledIds.add(waitlistIdTemp);
+            } else {
+                // Handle Exceptions on removing from an empty queue
+                System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
             }
-            // Handle Student was never enrolled
-            else {
-                System.out.printf("Student %s was never enrolled!%n", registeredStudents.get(id).getName());
-            }
-        }
-        // Handle Exceptions on removing from an empty queue
-        catch (NoSuchElementException e) {
-            System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
-            // System.out.println(e);
 
-        } catch (Exception e) {
-            System.out.println(e);
+//            try {
+//                // Id taken from the waitlist
+//                int waitlistIdTemp = waitlistIds.remove();
+//
+//                System.out.printf("Student %s was removed from the waitlist and added to the enroll list.%n", registeredStudents.get(waitlistIdTemp).getName());
+//
+//                // Add the head of the queue from the waitlist to the enrolled list
+//                enrolledIds.add(waitlistIdTemp);
+//            }
+//            // Handle Exceptions on removing from an empty queue
+//            catch (NoSuchElementException e) {
+//                System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
+//                // System.out.println(e);
+//            }
+        } else {
+            // Handle Student was never enrolled
+            System.out.printf("Student %s was never enrolled!%n", registeredStudents.get(id).getName());
         }
     }
 
@@ -140,12 +150,12 @@ public class Classroom {
 
         // OPTIMIZE: Is this even that fast?
         // Stream the enrolled list then map then collect
-        List<String> studentsNameList = enrolledIds.stream()
+        ArrayList<String> studentsNameList = enrolledIds.stream()
                 .map(e -> registeredStudents.get(e).getName())
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return (ArrayList<String>) studentsNameList;
+        return studentsNameList;
     }
 
     public ArrayList<String> getWaitlistedStudents() {
