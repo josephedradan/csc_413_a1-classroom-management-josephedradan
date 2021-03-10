@@ -102,10 +102,7 @@ public class Classroom {
         // TODO: Implement. Attempt to remove the student with the provided ID from the enrolled students set. If the
         //       student was removed, backfill the enrolled students set with a student from the waitlist.
 
-        // Catch exceptions when removing from an empty queue specifically from remove()
-
-
-        if (!enrolledIds.isEmpty()){
+        if (!enrolledIds.isEmpty()) {
             // Remove student from enrolled list
             boolean result = enrolledIds.remove(id);
 
@@ -122,27 +119,15 @@ public class Classroom {
                     enrolledIds.add(waitlistIdTemp);
                 } else {
                     // Handle Exceptions on removing from an empty queue
-                    System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
+                    System.out.println("waitlistIds list is empty! No student Id was added to the enrolled list automatically!");
                 }
 
-//            try {
-//                // Id taken from the waitlist
-//                int waitlistIdTemp = waitlistIds.remove();
-//
-//                System.out.printf("Student %s was removed from the waitlist and added to the enroll list.%n", registeredStudents.get(waitlistIdTemp).getName());
-//
-//                // Add the head of the queue from the waitlist to the enrolled list
-//                enrolledIds.add(waitlistIdTemp);
-//            }
-//            // Handle Exceptions on removing from an empty queue
-//            catch (NoSuchElementException e) {
-//                System.out.println("Enrolled list is empty! No student Id was added to the enrolled list automatically!");
-//                // System.out.println(e);
-//            }
             } else {
                 // Handle Student was never enrolled
                 System.out.printf("Student %s was never enrolled!%n", registeredStudents.get(id).getName());
             }
+        } else {
+            System.out.println("Enrolled list is empty!");
         }
     }
 
